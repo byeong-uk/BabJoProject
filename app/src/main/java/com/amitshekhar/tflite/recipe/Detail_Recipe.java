@@ -35,7 +35,7 @@ public class Detail_Recipe extends AppCompatActivity {
 
     TextView Dt_recipe_name;
     TextView Dt_recipe_dc;
-
+    ImageView dt_img;
 
     private Integer recipe_seq;
 
@@ -57,7 +57,7 @@ public class Detail_Recipe extends AppCompatActivity {
         Dt_recipe_name = (TextView) findViewById(R.id.Dt_recipe_name);
         Dt_recipe_dc = (TextView) findViewById(R.id.Dt_recipe_dc);
 //        Dt_recipe_make = (ListView) findViewById(R.id.Dt_recipe_dc);
-
+        dt_img = (ImageView) findViewById(R.id.Dt_img);
 
         DetailRecipe(recipe_seq);
 
@@ -91,6 +91,27 @@ public class Detail_Recipe extends AppCompatActivity {
                     Dt_recipe_dc.append(content1);
                     Dt_recipe_name.setText(results.get(0).getRecipe_nm());
 
+                    switch (results.get(0).getRecipe_seq()){
+                        case 1 :
+                            dt_img.setBackgroundResource(R.drawable.bbb);
+                            break;
+                        case 2 :
+                            dt_img.setBackgroundResource(R.drawable.eggroll);
+                            break;
+                        case 4 :
+                            dt_img.setBackgroundResource(R.drawable.potato_stir);
+                            break;
+                        case 5 :
+                            dt_img.setBackgroundResource(R.drawable.cccc);
+                            break;
+                        case 6 :
+                            dt_img.setBackgroundResource(R.drawable.shrimp_rice1);
+                            break;
+                        case 3 :
+                            dt_img.setBackgroundResource(R.drawable.gambas);
+                            break;
+
+                    }
 
 
                 }
@@ -115,6 +136,5 @@ public class Detail_Recipe extends AppCompatActivity {
             }
         });
     }
-
 
 }

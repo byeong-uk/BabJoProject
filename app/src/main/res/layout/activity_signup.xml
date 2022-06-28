@@ -135,19 +135,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/join_pwck" />
 
-    <Button
-        android:id="@+id/check_button"
-        android:layout_width="63dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="140dp"
-        android:background="@drawable/mini_white_button"
-        android:text="Check"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/join_email"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/join_button"

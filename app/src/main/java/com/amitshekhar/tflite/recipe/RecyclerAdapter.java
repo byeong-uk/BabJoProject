@@ -79,7 +79,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             super(itemView);
             textView1 = itemView.findViewById(R.id.re_name);
             textView2 = itemView.findViewById(R.id.re_content);
-//            imageView = itemView.findViewById(R.id.re_profile);
+            imageView = itemView.findViewById(R.id.re_profile);
             layout1 = itemView.findViewById(R.id.recipeLayout);
 
         }
@@ -88,6 +88,28 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
 
             textView1.setText(data.getRe_name());
             textView2.setText(data.getRe_content());
+            switch (data.getRe_seq()){
+                case 1 :
+                    imageView.setBackgroundResource(R.drawable.bbb);
+                    break;
+                case 2 :
+                    imageView.setBackgroundResource(R.drawable.eggroll);
+                    break;
+                case 4 :
+                    imageView.setBackgroundResource(R.drawable.potato_stir);
+                    break;
+                case 5 :
+                    imageView.setBackgroundResource(R.drawable.cccc);
+                    break;
+                case 6 :
+                    imageView.setBackgroundResource(R.drawable.shrimp_rice1);
+                    break;
+                case 3 :
+                    imageView.setBackgroundResource(R.drawable.gambas);
+                    break;
+
+            }
+
         }
     }
 }

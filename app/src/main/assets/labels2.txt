@@ -17,5 +17,5 @@ egg
 galic
 onion
 green_onion
-감자
+계란
 새우
