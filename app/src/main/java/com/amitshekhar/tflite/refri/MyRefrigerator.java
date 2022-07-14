@@ -51,10 +51,10 @@ import retrofit2.Response;
 public class MyRefrigerator extends Fragment implements View.OnClickListener{
 
     private Classifier classifier;
-    private static final String MODEL_PATH = "best.tflite"; //학습 모델
+    private static final String MODEL_PATH = "model.tflite"; //학습 모델
     private static final boolean QUANT = true; //양자화 여부
     private static final String LABEL_PATH = "labels2.txt"; //라벨
-    private static final int INPUT_SIZE = 640; //입력 사이즈 크기
+    private static final int INPUT_SIZE = 224; //입력 사이즈 크기
     
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

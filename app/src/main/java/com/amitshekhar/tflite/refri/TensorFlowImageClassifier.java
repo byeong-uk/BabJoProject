@@ -59,11 +59,11 @@ public class TensorFlowImageClassifier implements Classifier {
     public List<Recognition> recognizeImage(Bitmap bitmap) {
         ByteBuffer byteBuffer = convertBitmapToByteBuffer(bitmap); //비트맵을 바이트버퍼로 저장
         if(quant){
-            byte[][][] result = new byte[1][25200][26];
+            byte[][] result = new byte[1][6];
             interpreter.run(byteBuffer, result); //입력값 bytebuffer에 대한 모델 추론, output: result
             return getSortedResultByte(result);
         } else {
-            float [][][] result = new float[1][25200][26];
+            float [][] result = new float[1][6];
             interpreter.run(byteBuffer, result);
             return getSortedResultFloat(result);
         }
@@ -130,7 +130,7 @@ public class TensorFlowImageClassifier implements Classifier {
     }
 
     @SuppressLint("DefaultLocale")
-    private List<Recognition> getSortedResultByte(byte[][][] labelProbArray) {
+    private List<Recognition> getSortedResultByte(byte[][] labelProbArray) {
 
         PriorityQueue<Recognition> pq =
                 new PriorityQueue<>(
@@ -143,7 +143,7 @@ public class TensorFlowImageClassifier implements Classifier {
                         });
 
         for (int i = 0; i < labelList.size(); ++i) {
-            float confidence = (labelProbArray[0][0][i] & 0xff) / 255.0f;
+            float confidence = (labelProbArray[0][i] & 0xff) / 255.0f;
             if (confidence > THRESHOLD) {
                 pq.add(new Recognition("" + i,
                         labelList.size() > i ? labelList.get(i) : "unknown",
@@ -162,7 +162,7 @@ public class TensorFlowImageClassifier implements Classifier {
     }
 
     @SuppressLint("DefaultLocale")
-    private List<Recognition> getSortedResultFloat(float[][][] labelProbArray) {
+    private List<Recognition> getSortedResultFloat(float[][] labelProbArray) {
 
         PriorityQueue<Recognition> pq =
                 new PriorityQueue<>(
@@ -175,7 +175,7 @@ public class TensorFlowImageClassifier implements Classifier {
                         });
 
         for (int i = 0; i < labelList.size(); ++i) {
-            float confidence = labelProbArray[0][0][i];
+            float confidence = labelProbArray[0][i];
             if (confidence > THRESHOLD) {
                 pq.add(new Recognition("" + i,
                         labelList.size() > i ? labelList.get(i) : "unknown",

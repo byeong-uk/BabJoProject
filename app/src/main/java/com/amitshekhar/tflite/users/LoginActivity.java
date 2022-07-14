@@ -1,9 +1,15 @@
 package com.amitshekhar.tflite.users;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -16,6 +22,7 @@ import com.amitshekhar.tflite.JsonPlaceHolderApi;
 import com.amitshekhar.tflite.R;
 import com.amitshekhar.tflite.RealMain;
 import com.amitshekhar.tflite.RetrofitClient;
+import com.amitshekhar.tflite.refri.MainActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,6 +31,7 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
 
     final private static String TAG = "LoginActivity";
+    private int RESULT_PERMISSIONS = 100;
     private RetrofitClient retrofitClient;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
 
@@ -32,11 +40,15 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_main);
 
+        requestPermissionCamera();
+
+
         // 위젯에 대한 참조.
         EditText idText = findViewById(R.id.login_email);
         EditText passwordText = findViewById(R.id.login_password);
         Button btn_login = findViewById(R.id.login_button);
         Button btn_join = findViewById(R.id.join_button);
+
 
         btn_login.setOnClickListener(new View.OnClickListener(){
 
@@ -153,5 +165,36 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public boolean requestPermissionCamera(){
+        int sdkVersion = Build.VERSION.SDK_INT;
+        if(sdkVersion >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(LoginActivity.this,
+                        new String[]{Manifest.permission.CAMERA},
+                        RESULT_PERMISSIONS);
+
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 101:
+                if(grantResults.length > 0){
+                    if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                        Toast.makeText(this, "카메라 권한 사용자가 승인함",Toast.LENGTH_LONG).show();
+                    }
+                    else if(grantResults[0] == PackageManager.PERMISSION_DENIED){
+                        Toast.makeText(this, "카메라 권한 사용자가 허용하지 않음.",Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(this, "수신권한 부여받지 못함.",Toast.LENGTH_LONG).show();
+                    }
+                }
+        }
+    }
 
 }

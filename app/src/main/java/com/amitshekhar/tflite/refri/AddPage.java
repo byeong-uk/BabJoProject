@@ -1,6 +1,8 @@
 package com.amitshekhar.tflite.refri;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
 import android.net.Uri;
@@ -11,6 +13,9 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
@@ -22,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.amitshekhar.tflite.R;
 
@@ -44,6 +50,7 @@ public class AddPage extends Fragment implements View.OnClickListener {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     final private static String TAG = "AddPage";
+    private int RESULT_PERMISSIONS = 100;
 
     Button camBT;
     ImageView camV;
@@ -90,10 +97,11 @@ public class AddPage extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_page, container, false);
-        camBT = (Button)view.findViewById(R.id.camBT); //카메라 버튼
-        camV = (ImageView)view.findViewById(R.id.camV); //카메라로 찍은 이미지가 올라갈 곳
+        camBT = (Button) view.findViewById(R.id.camBT); //카메라 버튼
+        camV = (ImageView) view.findViewById(R.id.camV); //카메라로 찍은 이미지가 올라갈 곳
         camBT.setOnClickListener(this);
         return view;
+
     }
 
     @Override

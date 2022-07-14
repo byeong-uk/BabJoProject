@@ -31,6 +31,7 @@ public class JoinActivity extends AppCompatActivity {
 
     final private static String TAG = "JoinActivity";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
